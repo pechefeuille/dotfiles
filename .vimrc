@@ -1,0 +1,241 @@
+set rtp+=~/.vim/bundle/vim-plug/
+call plug#begin('~/.vim/bundle')
+
+Plug 'anyakichi/vim-surround'
+Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-scripts/Align', {'on': 'Align'}
+Plug 'LeafCage/yankround.vim'
+Plug 'Shougo/neocomplete'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'daylilyfield/sexyscroll.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'morhetz/gruvbox'
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'groenewege/vim-less', {'for': 'less'}
+Plug 'plasticboy/vim-markdown', {'for': 'md'}
+Plug 'tpope/vim-fugitive'
+Plug 'bling/vim-airline'
+Plug 'wavded/vim-stylus', {'for': 'styl'}
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'digitaltoad/vim-jade'
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/DirDiff.vim'
+Plug 'rking/ag.vim', {'on': 'Ag'}
+Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
+Plug 'kannokanno/previm'
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'jason0x43/vim-js-indent', {'for': ['javascript', 'typescript']}
+Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
+Plug 'fatih/vim-go', {'for': 'go'}
+
+call plug#end()
+
+syntax on
+
+set t_Co=256
+set background=dark
+colorscheme gruvbox
+
+set encoding=UTF-8
+set autoread
+set hlsearch
+set ignorecase
+set smartcase
+set wrapscan
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set smarttab
+set expandtab
+set backspace=indent,eol,start
+set wildmenu
+set formatoptions+=mM
+set infercase
+set fileformat=unix
+set fileformats=unix,mac,dos
+set ambiwidth=double
+set clipboard+=unnamed
+set showmatch
+set cpoptions-=m
+set matchtime=3
+set matchpairs+=<:>
+set showmode
+set modeline
+set hidden
+set number
+set ruler
+set nolist
+set wrap
+set laststatus=2
+set cmdheight=2
+set showcmd
+set notitle
+set cursorline
+set guioptions=erL
+set foldenable
+set foldmethod=marker
+set shortmess=aTI
+set history=100
+set nowritebackup
+set nobackup
+set noswapfile
+
+set undofile
+
+if !isdirectory(expand('~/.vimundo'))
+    call mkdir(expand('~/.vimundo'))
+endif
+
+set undodir=~/.vimundo
+
+set autoindent
+set smartindent
+
+set ttymouse=xterm2
+
+inoremap "" ""<LEFT>
+inoremap '' ''<LEFT>
+inoremap {} {}<LEFT>
+inoremap {} {}<LEFT>
+
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+nmap <silent> <Esc><Esc> :nohlsearch<CR>
+
+nnoremap <C-j> 5j
+nnoremap <C-h> 5h
+nnoremap <C-k> 5k
+nnoremap <C-l> 5l
+
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
+nnoremap gb :bn<CR>
+nnoremap gB :bp<CR>
+
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+vnoremap <C-j> 5j
+vnoremap <C-h> 5h
+vnoremap <C-k> 5k
+vnoremap <C-l> 5l
+
+vnoremap k gk
+vnoremap j gj
+vnoremap gk k
+vnoremap gj j
+
+vnoremap v ^$h
+
+autocmd BufNewFile,BufRead *.js setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.ts setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.json setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.coffee setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.cson setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.styl setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.xml setlocal ts=1 sts=1 sw=1
+autocmd BufNewFile,BufRead *.html setlocal ts=1 sts=1 sw=1
+autocmd BufNewFile,BufRead *.jade setlocal ts=1 sts=1 sw=1
+autocmd BufNewFile,BufRead *.go setlocal ts=2 sts=2 sw=2 noexpandtab
+
+command! -nargs=0 CopyFilePath call s:copy_file_path()
+command! -nargs=0 CopyFileName call s:copy_file_name()
+
+  function! s:copy_file_path()
+    let l:p = expand('%:p')
+    let @* = l:p
+    let @" = l:p
+    echo l:p
+  endf
+  
+  function! s:copy_file_name()
+    let l:n = expand('%:t')
+    let @* = l:n
+    let @" = l:n
+    echo l:n
+  endf
+
+let g:plugin_dicwin_disable = 1
+
+" neocomplete settings
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" unite settings
+nnoremap <Space>ub :<C-u>Unite buffer<CR>
+nnoremap <Space>ur :<C-u>Unite file_mru<CR>
+nnoremap <Space>uf :<C-u>Unite file<CR>
+nnoremap <Space><Space> :<C-u>Unite file_rec<CR>
+
+" align settings
+let g:Align_xstrlen=3
+
+" airline
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#readonly#enabled = 1
+
+" markdown vim mode
+let g:vim_markdown_folding_disabled = 1
+
+" indent-guides
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+
+" yankround
+" nmap p <Plug>(yankround-p)
+" xmap p <Plug>(yankround-p)
+" nmap P <Plug>(yankround-P)
+" nmap gp <Plug>(yankround-gp)
+" xmap gp <Plug>(yankround-gp)
+" nmap gP <Plug>(yankround-gP)
+" nmap <C-p> <Plug>(yankround-prev)
+" nmap <C-n> <Plug>(yankround-next)
+
+" previm
+let g:previm_open_cmd = 'open /Applications/Google\ Chrome.app'
+
+" syntastic
+let g:syntastic_javascript_checkers = ['eslint']
+
+" vim-js-indent 
+let g:js_indent_typescript = 1
+
+" vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+
+" tsuquyomi
+let g:tsuquyomi_disable_quickfix = 1
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_single_quote_import	= 1
+let g:tsuquyomi_shortest_import_path = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+
