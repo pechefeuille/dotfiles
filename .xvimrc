@@ -8,7 +8,7 @@ Plug 'LeafCage/yankround.vim'
 Plug 'Shougo/neocomplete'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
-" Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'daylilyfield/sexyscroll.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
@@ -114,10 +114,10 @@ nnoremap <C-h> 5h
 nnoremap <C-k> 5k
 nnoremap <C-l> 5l
 
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
+"nnoremap k gk
+"nnoremap j gj
+"nnoremap gk k
+"nnoremap gj j
 
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
@@ -129,17 +129,15 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
 vnoremap <C-j> 5j
 vnoremap <C-h> 5h
 vnoremap <C-k> 5k
 vnoremap <C-l> 5l
 
-vnoremap k gk
-vnoremap j gj
-vnoremap gk k
-vnoremap gj j
+"vnoremap k gk
+"vnoremap j gj
+"vnoremap gk k
+"vnoremap gj j
 
 vnoremap v ^$h
 
@@ -217,7 +215,6 @@ let g:previm_open_cmd = 'open /Applications/Google\ Chrome.app'
 
 " syntastic
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_html_tidy_exec = 'tidy5'
 
 " vim-js-indent 
 let g:js_indent_typescript = 1
@@ -241,6 +238,4 @@ let g:tsuquyomi_completion_detail = 1
 let g:tsuquyomi_single_quote_import	= 1
 let g:tsuquyomi_shortest_import_path = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
-" augroup typescript_key_mapping
-"   autocmd FileType typescript nmap <buffer> <Leader>g <Plug>(TsuquyomiDefinition)
-" augroup END
+

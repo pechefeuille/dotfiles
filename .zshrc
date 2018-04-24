@@ -6,11 +6,16 @@ export GOPATH=$HOME/Workspaces/Go
 export BROWSER=google-chrome
 
 ANDROID_SDK_HOME=$HOME/Library/Android/sdk
+JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8.0_144"`
 
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.gobrew/bin:$PATH
 export PATH=$ANDROID_SDK_HOME/platform-tools:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/Workspaces/mergepbx:$PATH
+export PATH=$JAVA_HOME/bin:$PATH
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
 
 autoload -Uz colors
 colors
