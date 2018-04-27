@@ -153,6 +153,7 @@ autocmd BufNewFile,BufRead *.xml setlocal ts=1 sts=1 sw=1
 autocmd BufNewFile,BufRead *.html setlocal ts=1 sts=1 sw=1
 autocmd BufNewFile,BufRead *.jade setlocal ts=1 sts=1 sw=1
 autocmd BufNewFile,BufRead *.go setlocal ts=2 sts=2 sw=2 noexpandtab
+autocmd FileType typescript nmap <buffer> gd <Plug>(TsuquyomiDefinition)
 
 command! -nargs=0 CopyFilePath call s:copy_file_path()
 command! -nargs=0 CopyFileName call s:copy_file_name()
@@ -241,6 +242,3 @@ let g:tsuquyomi_completion_detail = 1
 let g:tsuquyomi_single_quote_import	= 1
 let g:tsuquyomi_shortest_import_path = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
-" augroup typescript_key_mapping
-"   autocmd FileType typescript nmap <buffer> <Leader>g <Plug>(TsuquyomiDefinition)
-" augroup END
