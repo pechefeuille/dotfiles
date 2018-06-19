@@ -8,7 +8,7 @@ Plug 'LeafCage/yankround.vim'
 Plug 'Shougo/neocomplete'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
-" Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'daylilyfield/sexyscroll.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
@@ -30,6 +30,9 @@ Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'jason0x43/vim-js-indent', {'for': ['javascript', 'typescript']}
 Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 call plug#end()
 
@@ -242,3 +245,6 @@ let g:tsuquyomi_completion_detail = 1
 let g:tsuquyomi_single_quote_import	= 1
 let g:tsuquyomi_shortest_import_path = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+
+" vim-prettier
+let g:prettier#config#bracket_spacing = 'true'
