@@ -114,7 +114,7 @@ set wrap
 set laststatus=2
 set cmdheight=2
 set showcmd
-set notitle
+set title
 set cursorline
 set guioptions=erL
 set foldenable
@@ -124,6 +124,8 @@ set history=100
 set nowritebackup
 set nobackup
 set noswapfile
+set spell
+set spelllang=en,cjk
 
 set undofile
 
