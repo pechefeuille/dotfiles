@@ -1,5 +1,4 @@
 export LANG=ja_JP.UTF-8
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 export PATH=/usr/local/bin:$PATH
 export TERM=xterm-256color
 export GOPATH=$HOME/Workspaces/Go
@@ -119,3 +118,6 @@ source $HOME/Library/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
 source $HOME/Library/google-cloud-sdk/completion.zsh.inc
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

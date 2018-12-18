@@ -27,12 +27,8 @@ Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
 Plug 'kannokanno/previm'
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'jason0x43/vim-js-indent', {'for': ['javascript', 'typescript']}
-Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -86,6 +82,8 @@ set history=100
 set nowritebackup
 set nobackup
 set noswapfile
+set spell
+set spelllang=en,cjk
 
 set undofile
 
@@ -156,7 +154,6 @@ autocmd BufNewFile,BufRead *.xml setlocal ts=1 sts=1 sw=1
 autocmd BufNewFile,BufRead *.html setlocal ts=1 sts=1 sw=1
 autocmd BufNewFile,BufRead *.jade setlocal ts=1 sts=1 sw=1
 autocmd BufNewFile,BufRead *.go setlocal ts=2 sts=2 sw=2 noexpandtab
-autocmd FileType typescript nmap <buffer> gd <Plug>(TsuquyomiDefinition)
 
 command! -nargs=0 CopyFilePath call s:copy_file_path()
 command! -nargs=0 CopyFileName call s:copy_file_name()
@@ -167,7 +164,7 @@ command! -nargs=0 CopyFileName call s:copy_file_name()
     let @" = l:p
     echo l:p
   endf
-  
+
   function! s:copy_file_name()
     let l:n = expand('%:t')
     let @* = l:n
@@ -206,25 +203,12 @@ let g:vim_markdown_folding_disabled = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
-" yankround
-" nmap p <Plug>(yankround-p)
-" xmap p <Plug>(yankround-p)
-" nmap P <Plug>(yankround-P)
-" nmap gp <Plug>(yankround-gp)
-" xmap gp <Plug>(yankround-gp)
-" nmap gP <Plug>(yankround-gP)
-" nmap <C-p> <Plug>(yankround-prev)
-" nmap <C-n> <Plug>(yankround-next)
-
 " previm
 let g:previm_open_cmd = 'open /Applications/Google\ Chrome.app'
 
 " syntastic
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_html_tidy_exec = 'tidy5'
-
-" vim-js-indent 
-let g:js_indent_typescript = 1
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -239,12 +223,18 @@ let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_list_type = "quickfix"
 
-" tsuquyomi
-let g:tsuquyomi_disable_quickfix = 1
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_single_quote_import	= 1
-let g:tsuquyomi_shortest_import_path = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+" Ale
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'go': ['golint', 'govet', 'errcheck'],
+\  'javascript': ['prettier', 'eslint'],
+\  'typescript': ['prettier', 'tslint'],
+\  'html': ['prettier'],
+\  'css': ['prettier', 'stylelint']
+\}
 
-" vim-prettier
-let g:prettier#config#bracket_spacing = 'true'
+autocmd FileType typescript nmap <buffer> gd :ALEGoToDefinition<CR>

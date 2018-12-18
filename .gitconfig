@@ -2,8 +2,8 @@
     insteadof = git://
 
 [core]
-    autocrlf = input
-    editor = vim 
+	autoCRLF = false
+    editor = vim
 
 [diff]
     tool = vim-diff
