@@ -3,7 +3,8 @@
 
 [core]
 	autoCRLF = false
-    editor = vim
+    editor = /Applications/MacVim.app/Contents/MacOS/Vim
+
 
 [diff]
     tool = vim-diff
