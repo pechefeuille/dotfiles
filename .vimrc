@@ -216,7 +216,9 @@ let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'go': ['golint', 'govet', 'errcheck'],
 \  'javascript': ['prettier', 'eslint'],
-\  'typescript': ['prettier', 'tslint']
+\  'typescript': ['prettier', 'tslint'],
+\  'css': ['stylelint'],
+\  'html': ['prettier']
 \}
 
 

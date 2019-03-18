@@ -1,18 +1,19 @@
 export LANG=ja_JP.UTF-8
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 export PATH=/usr/local/bin:$PATH
 export TERM=xterm-256color
 export GOPATH=$HOME/Workspaces/Go
 export BROWSER=google-chrome
 
 ANDROID_SDK_HOME=$HOME/Library/Android/sdk
-JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8.0_144"`
+# JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8.0_144"`
 
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.gobrew/bin:$PATH
 export PATH=$ANDROID_SDK_HOME/platform-tools:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/Workspaces/mergepbx:$PATH
-export PATH=$JAVA_HOME/bin:$PATH
+# export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 
@@ -118,6 +119,8 @@ source $HOME/Library/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
 source $HOME/Library/google-cloud-sdk/completion.zsh.inc
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
