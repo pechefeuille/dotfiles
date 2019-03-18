@@ -1,5 +1,6 @@
 #!/bin/sh
 ln -sf ~/Workspaces/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/Workspaces/dotfiles/.zshenv ~/.zshenv
 ln -sf ~/Workspaces/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/Workspaces/dotfiles/.xvimrc ~/.xvimrc
 ln -sf ~/Workspaces/dotfiles/.ideavimrc ~/.ideavimrc

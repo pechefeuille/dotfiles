@@ -217,7 +217,7 @@ let g:ale_fixers = {
 \  'go': ['golint', 'govet', 'errcheck'],
 \  'javascript': ['prettier', 'eslint'],
 \  'typescript': ['prettier', 'tslint'],
-\  'css': ['stylelint'],
+\  'css': ['prettier', 'stylelint'],
 \  'html': ['prettier']
 \}
 
