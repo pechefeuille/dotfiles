@@ -26,6 +26,7 @@ Plug 'kannokanno/previm'
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'jason0x43/vim-js-indent', {'for': ['javascript', 'typescript']}
 Plug 'w0rp/ale'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -114,7 +115,7 @@ set wrap
 set laststatus=2
 set cmdheight=2
 set showcmd
-set title
+set notitle
 set cursorline
 set guioptions=erL
 set foldenable
@@ -218,7 +219,9 @@ let g:ale_fixers = {
 \  'javascript': ['prettier', 'eslint'],
 \  'typescript': ['prettier', 'tslint'],
 \  'css': ['prettier', 'stylelint'],
-\  'html': ['prettier']
+\  'scss': ['prettier'],
+\  'html': ['prettier'],
+\  'json': ['prettier']
 \}
 
 

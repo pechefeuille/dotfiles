@@ -16,6 +16,7 @@ export PATH=$HOME/Workspaces/mergepbx:$PATH
 # export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
 autoload -Uz colors
 colors
