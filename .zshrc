@@ -120,8 +120,5 @@ source $HOME/Library/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
 source $HOME/Library/google-cloud-sdk/completion.zsh.inc
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

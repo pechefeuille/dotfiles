@@ -6,7 +6,7 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-scripts/Align', {'on': 'Align'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/bundle/YouCompleteMe', 'do': './install.py --all' }
+Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/bundle/YouCompleteMe', 'do': './install.py --ts-completer' }
 Plug 'daylilyfield/sexyscroll.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
@@ -223,7 +223,6 @@ let g:ale_fixers = {
 \  'html': ['prettier'],
 \  'json': ['prettier']
 \}
-
 
 " You Complete Me
 autocmd FileType typescript nmap <buffer> gd :ALEGoToDefinition<CR>
