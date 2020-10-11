@@ -4,9 +4,6 @@ call plug#begin('~/.vim/bundle')
 Plug 'anyakichi/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-scripts/Align', {'on': 'Align'}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/bundle/YouCompleteMe', 'do': './install.py --ts-completer' }
 Plug 'daylilyfield/sexyscroll.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
@@ -22,11 +19,13 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
-Plug 'kannokanno/previm'
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'jason0x43/vim-js-indent', {'for': ['javascript', 'typescript']}
 Plug 'w0rp/ale'
 Plug 'ryanoasis/vim-devicons'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'leafOfTree/vim-svelte-plugin', { 'for': 'svelte' }
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 
 call plug#end()
 
@@ -112,6 +111,7 @@ set number
 set ruler
 set nolist
 set wrap
+set signcolumn=yes
 set laststatus=2
 set cmdheight=2
 set showcmd
@@ -125,8 +125,6 @@ set history=100
 set nowritebackup
 set nobackup
 set noswapfile
-set spell
-set spelllang=en,cjk
 
 set undofile
 
@@ -139,6 +137,7 @@ set undodir=~/.vimundo
 set autoindent
 set smartindent
 
+set mouse=a
 set ttymouse=xterm2
 
 " File Type Triggers
@@ -146,9 +145,9 @@ set ttymouse=xterm2
 augroup vimrc
 autocmd!
 
-autocmd BufNewFile,BufRead *.xml setlocal ts=1 sts=1 sw=1
-autocmd BufNewFile,BufRead *.html setlocal ts=1 sts=1 sw=1
-autocmd BufNewFile,BufRead *.jade setlocal ts=1 sts=1 sw=1
+autocmd BufNewFile,BufRead *.xml setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.html setlocal ts=2 sts=2 sw=2
+autocmd BufNewFile,BufRead *.jade setlocal ts=2 sts=2 sw=2
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab
 
 augroup END
@@ -174,9 +173,6 @@ command! -nargs=0 CopyFileName call s:copy_file_name()
 
 " Plugin Settings
 
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>f :Files<CR>
-
 let g:plugin_dicwin_disable = 1
 
 " align settings
@@ -187,6 +183,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMarkBookmarks = 0
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeStatusLine = -1
+let g:NERDTreeHighlightCursorline = 0
 
 " airline
 let g:airline#extensions#whitespace#enabled = 0
@@ -202,9 +199,6 @@ let g:vim_markdown_folding_disabled = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
-" previm
-let g:previm_open_cmd = 'open /Applications/Google\ Chrome.app'
-
 " vim-js-indent
 let g:js_indent_typescript = 1
 
@@ -212,17 +206,58 @@ let g:js_indent_typescript = 1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_completion_enabled = 0
+let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'go': ['golint', 'govet', 'errcheck'],
 \  'javascript': ['prettier', 'eslint'],
 \  'typescript': ['prettier', 'tslint'],
-\  'css': ['prettier', 'stylelint'],
+\  'css': ['prettier'],
 \  'scss': ['prettier'],
 \  'html': ['prettier'],
 \  'json': ['prettier']
 \}
 
-" You Complete Me
-autocmd FileType typescript nmap <buffer> gd :ALEGoToDefinition<CR>
+
+" Coc
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <C-Space> coc#refresh()
+
+imap <C-@> <C-Space>
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <leader>rn <Plug>(coc-rename)
+
+" Devicon
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+
+" vim-clap
+nmap <Leader><Space>b :Clap buffers<CR>
+nmap <Leader><Space>f :Clap files<CR>
+nmap <Leader><Space>d :Clap filer<CR>
+
+" EasyMotion
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" vim-svelte-plugin
+let g:vim_svelte_plugin_use_typescript = 1
