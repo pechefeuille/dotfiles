@@ -1,4 +1,11 @@
 {
+  "cSpell.words": ["firestore", "ngrx", "gcloud"],
+  "markdownlint.config": {
+    "line-length": false,
+    "no-duplicate-heading": {
+      "allow_different_nesting": true
+    }
+  },
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",
@@ -7,4 +14,5 @@
     "markdown",
     "svelte",
     "json"
-  ]}
+  ]
+}
