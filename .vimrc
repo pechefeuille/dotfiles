@@ -20,12 +20,11 @@ Plug 'vim-scripts/DirDiff.vim'
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'w0rp/ale'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafOfTree/vim-svelte-plugin', { 'for': 'svelte' }
-Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -74,6 +73,13 @@ vnoremap gj j
 
 vnoremap v ^$h
 
+" Color Scheme
+
+set termguicolors
+let g:gruvbox_sign_column = 'dark0'
+let g:airline_theme='gruvbox'
+colorscheme gruvbox
+
 " Options
 
 set t_Co=256
@@ -93,12 +99,13 @@ set shiftround
 set smarttab
 set expandtab
 set backspace=indent,eol,start
+set fillchars+=vert:│
 set wildmenu
 set formatoptions+=mM
 set infercase
 set fileformat=unix
 set fileformats=unix,mac,dos
-set ambiwidth=double
+set ambiwidth=single
 set clipboard+=unnamed
 set showmatch
 set cpoptions-=m
@@ -186,9 +193,11 @@ let g:NERDTreeStatusLine = -1
 let g:NERDTreeHighlightCursorline = 0
 
 " airline
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ""
+let g:airline_right_sep = ""
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#readonly#enabled = 1
 
@@ -201,24 +210,6 @@ let g:indent_guides_guide_size = 1
 
 " vim-js-indent
 let g:js_indent_typescript = 1
-
-" Ale
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_completion_enabled = 0
-let g:ale_disable_lsp = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'go': ['golint', 'govet', 'errcheck'],
-\  'javascript': ['prettier', 'eslint'],
-\  'typescript': ['prettier', 'tslint'],
-\  'css': ['prettier'],
-\  'scss': ['prettier'],
-\  'html': ['prettier'],
-\  'json': ['prettier']
-\}
-
 
 " Coc
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -243,6 +234,8 @@ endfunction
 
 nmap <leader>rn <Plug>(coc-rename)
 
+let g:coc_global_extensions = ['coc-tailwindcss', 'coc-spell-checker', 'coc-prettier', 'coc-json', 'coc-highlight', 'coc-git', 'coc-eslint', 'coc-xml', 'coc-tsserver', 'coc-svg', 'coc-svelte', 'coc-stylelint', 'coc-sql', 'coc-markdownlint', 'coc-go', 'coc-css', 'coc-angular']
+
 " Devicon
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
@@ -250,10 +243,25 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 
-" vim-clap
-nmap <Leader><Space>b :Clap buffers<CR>
-nmap <Leader><Space>f :Clap files<CR>
-nmap <Leader><Space>d :Clap filer<CR>
+" fzf.vim
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'border': 'left' } }
+let g:fzf_colors = {
+  \ 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'Normal'],
+  \ 'bg+':     ['bg', 'Normal'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Normal'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+nmap <Leader><Space>b :Buffers<CR>
+nmap <Leader><Space>f :Files<CR>
 
 " EasyMotion
 map  <Leader>f <Plug>(easymotion-bd-f)
