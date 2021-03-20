@@ -8,3 +8,4 @@ ln -sf ~/Workspaces/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/Workspaces/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/Workspaces/dotfiles/.gitignore-global ~/.gitignore-global
 ln -sf ~/Workspaces/dotfiles/.eslintrc.json ~/.eslintrc.json
+ln -sf ~/Workspaces/dotfiles/.vim/coc-settings.json ~/.vim/coc-settings.json
