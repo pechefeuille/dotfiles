@@ -14,5 +14,6 @@
     "markdown",
     "svelte",
     "json"
-  ]
+  ],
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

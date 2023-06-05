@@ -1,22 +1,16 @@
 export LANG=ja_JP.UTF-8
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export EDITOR=mvim
 export PATH=/usr/local/bin:$PATH
 export TERM=xterm-256color
 export GOPATH=$HOME/Workspaces/Go
-export BROWSER=google-chrome
 
-ANDROID_SDK_HOME=$HOME/Library/Android/sdk
-# JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home -v "1.8.0_144"`
+ANDROID_SDK_HOME="~/Library/Android/sdk"
 
 export PATH=$GOPATH/bin:$PATH
-export PATH=$HOME/.gobrew/bin:$PATH
+export PATH="$HOME/.gobrew/bin:$PATH"
 export PATH=$ANDROID_SDK_HOME/platform-tools:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/Workspaces/mergepbx:$PATH
-# export PATH=$JAVA_HOME/bin:$PATH
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
-export PYTHON_CONFIGURE_OPTS="--enable-framework"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 autoload -Uz colors
 colors
@@ -27,7 +21,43 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-PROMPT="%c $ "
+FOLDER_ICON=$'\uF07C'
+RIGHT_BREAK_ICON=$'\uE0C8'
+OCTOCAT_ICON=$'\uE708'
+GHOST_ICON=$'\uE007'
+
+setopt prompt_subst
+
+# vcs_info
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' max-exports 3
+zstyle ':vcs_info:git:*' stagedstr "+"
+zstyle ':vcs_info:git:*' unstagedstr "-"
+zstyle ':vcs_info:git:*' formats "%{$bg[white]%}%{$fg[black]%} $OCTOCAT_ICON %b%c%u  %{$reset_color%}%{$reset_color%}%{$fg[white]%}$RIGHT_BREAK_ICON%{$reset_color%}"
+zstyle ':vcs_info:git:*' actionformats "%{$bg[red]%}%{$fg[white]%} $OCTOCAT_ICON %b%c%u  %{$reset_color%}%{$reset_color%}%{$fg[red]%}$RIGHT_BREAK_ICON%{$reset_color%}" "%a"
+
+function _update_vcs_info_msg() {
+    LANG=en_US.UTF-8 vcs_info
+    if [[ -n "${vcs_info_msg_0_}" ]]; then
+        if [[ -n "${vcs_info_msg_1_}" ]]; then
+          echo "%{$fg[yellow]%}%{$bg[red]%}$RIGHT_BREAK_ICON%{$reset_color%}%{$reset_color%}${vcs_info_msg_0_}"
+        else
+          echo "%{$fg[yellow]%}%{$bg[white]%}$RIGHT_BREAK_ICON%{$reset_color%}%{$reset_color%}${vcs_info_msg_0_}"
+        fi
+    else
+        echo "%{$fg[yellow]%}$RIGHT_BREAK_ICON%{$reset_color%}"
+    fi
+}
+
+function _update_prompt() {
+  echo "
+%{$fg[black]%}%{$bg[yellow]%} $FOLDER_ICON  %~ %{$reset_color%}%{$reset_color%}`_update_vcs_info_msg` $GHOST_ICON  "
+}
+
+PROMPT='`_update_prompt`'
 
 autoload -Uz select-word-style
 select-word-style default
@@ -42,23 +72,6 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                    /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
-# vcs_info
-autoload -Uz vcs_info
-autoload -Uz add-zsh-hook
-setopt prompt_subst
-
-function _update_vcs_info_msg() {
-    LANG=en_US.UTF-8 vcs_info
-    RPROMPT="${vcs_info_msg_0_}"
-}
-add-zsh-hook precmd _update_vcs_info_msg
-
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '%F{yellow}'
-zstyle ':vcs_info:*' unstagedstr '%f%F{blue}'
-zstyle ':vcs_info:*' formats '%F{green}%c%u [%b]%f'
-zstyle ':vcs_info:*' actionformats '%F{red} [%b|%a]%f'
 
 setopt print_eight_bit
 setopt no_beep
@@ -76,8 +89,8 @@ setopt extended_glob
 
 bindkey '^R' history-incremental-pattern-search-backward
 
-alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vi='env LANG=ja_JP.UTF-8 mvim -v "$@"'
+alias vim='env LANG=ja_JP.UTF-8 mvim -v "$@"'
 alias la='ls -al'
 alias ll='ls -l'
 alias rm='rm -i'
@@ -101,12 +114,12 @@ fi
 
 case ${OSTYPE} in
     darwin*)
-        #For Mac
+        #Mac用の設定
         export CLICOLOR=1
         alias ls='ls -G -F'
         ;;
     linux*)
-        #For Linux
+        #Linux用の設定
         alias ls='ls -F --color=auto'
         ;;
 esac
@@ -115,10 +128,13 @@ attachToWearable() {
   adb -d forward tcp:5601 tcp:5601
 }
 
-# The next line updates PATH for the Google Cloud SDK.
-source $HOME/Library/google-cloud-sdk/path.zsh.inc
+# Google Cloud SDK
+source '/usr/local/share/google-cloud-sdk/path.zsh.inc'
+source '/usr/local/share/google-cloud-sdk/completion.zsh.inc'
 
-# The next line enables shell command completion for gcloud.
-source $HOME/Library/google-cloud-sdk/completion.zsh.inc
+# GVM
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+. /usr/local/opt/asdf/libexec/asdf.sh
+
+eval "$(starship init zsh)"
