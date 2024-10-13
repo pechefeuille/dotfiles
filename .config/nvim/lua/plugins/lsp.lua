@@ -17,8 +17,9 @@ return {
 		opts = {
 			ensure_installed = {
 				"lua_ls",
-				"tsserver",
+				"ts_ls",
 				"svelte",
+				"pyright",
 			},
 		},
 	},
@@ -31,10 +32,16 @@ return {
 		},
 	},
 
-	{
-		"jose-elias-alvarez/typescript.nvim",
-		lazy = true,
-	},
+	-- {
+	-- 	"jose-elias-alvarez/typescript.nvim",
+	-- 	lazy = true,
+	-- },
+
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
 
 	{
 		"glepnir/lspsaga.nvim",
@@ -69,7 +76,7 @@ return {
 			"j-hui/fidget.nvim",
 			"folke/neodev.nvim",
 			"glepnir/lspsaga.nvim",
-			"jose-elias-alvarez/typescript.nvim",
+			-- "jose-elias-alvarez/typescript.nvim",
 		},
 		config = function()
 			local telescope_builtin = require("telescope.builtin")
@@ -110,6 +117,7 @@ return {
 						require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 					if server == "tsserver" then
+						server = "ts_ls"
 						require("typescript").setup({
 							server = {
 								on_attach = on_attach,
@@ -128,12 +136,15 @@ return {
 	},
 
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		-- "jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
+			"nvimtools/none-ls-extras.nvim",
 			"williamboman/mason.nvim",
-			"jose-elias-alvarez/typescript.nvim",
+			-- "jose-elias-alvarez/typescript.nvim",
 		},
+		requires = { "nvim-lua/plenary.nvim" },
 		opts = function()
 			local null_ls = require("null-ls")
 			local formatting = null_ls.builtins.formatting
@@ -143,14 +154,18 @@ return {
 				sources = {
 					formatting.prettier.with({
 						extra_filetypes = { "svelte", "toml" },
+						disabled_filetypes = { "handlebars" },
 					}),
 					formatting.stylua,
-					diagnostics.eslint_d.with({
+					formatting.black,
+					require("none-ls.diagnostics.eslint_d").with({
+						-- diagnostics.eslint_d.with({
 						condition = function(utils)
-							return utils.root_has_file(".eslintrc.js")
+							return utils.root_has_file(".eslintrc.js") or utils.root_has_file("eslint.config.mjs")
 						end,
 					}),
-					require("typescript.extensions.null-ls.code-actions"),
+					-- diagnostics.pylint,
+					-- require("typescript.extensions.null-ls.code-actions"),
 				},
 				on_attach = function(current_client, bufnr)
 					if current_client.supports_method("textDocument/formatting") then
@@ -177,9 +192,11 @@ return {
 		"jay-babu/mason-null-ls.nvim",
 		opts = {
 			ensure_installed = {
-				"prettier", -- ts/js formatter
-				"stylua", -- lua formatter
-				"eslint_d", -- ts/js linter
+				"prettier",
+				"stylua",
+				"eslint_d",
+				"black",
+				"pylint",
 			},
 			automatic_installation = true,
 		},

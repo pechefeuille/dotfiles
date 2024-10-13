@@ -62,9 +62,9 @@ return {
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
 		opts = {
-			char = "┊",
-			show_trailing_blankline_indent = false,
+			indent = { char = "┊" },
 		},
 	},
 
@@ -146,7 +146,7 @@ return {
 
 	{
 		"akinsho/bufferline.nvim",
-		version = "*",
+		-- version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {

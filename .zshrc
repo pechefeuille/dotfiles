@@ -1,16 +1,4 @@
-export LANG=ja_JP.UTF-8
-export EDITOR=mvim
-export PATH=/usr/local/bin:$PATH
-export TERM=xterm-256color
-export GOPATH=$HOME/Workspaces/Go
-
-ANDROID_SDK_HOME="~/Library/Android/sdk"
-
-export PATH=$GOPATH/bin:$PATH
-export PATH="$HOME/.gobrew/bin:$PATH"
-export PATH=$ANDROID_SDK_HOME/platform-tools:$PATH
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 
 autoload -Uz colors
 colors
@@ -129,12 +117,10 @@ attachToWearable() {
 }
 
 # Google Cloud SDK
-source '/usr/local/share/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/share/google-cloud-sdk/completion.zsh.inc'
-
-# GVM
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-. /usr/local/opt/asdf/libexec/asdf.sh
+source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
 eval "$(starship init zsh)"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
